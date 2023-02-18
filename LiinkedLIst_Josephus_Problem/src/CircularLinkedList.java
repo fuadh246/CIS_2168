@@ -19,17 +19,13 @@ public class CircularLinkedList<E> implements Iterable<E> {
 	// I highly recommend using this helper method
 	// Return Node<E> found at the specified index
 	// be sure to handle out of bounds cases
-	private Node<E> getNode(int index ) { 										//Done
-		if(index<0 || index+1>size){
-			throw new IndexOutOfBoundsException("Index out of bounds");
-		}
+	private Node<E> getNode(int index){  //O(n)
 		Node<E> current = head;
 		for (int i = 0; i < index; i++) {
 			current = current.next;
 		}
 		return current;
 	}
-
 
 	// attach a node to the end of the list
 	public boolean add(E item) {
@@ -94,21 +90,15 @@ public class CircularLinkedList<E> implements Iterable<E> {
 			head = head.next;
 			tail.next = head;
 		} else if (index == size - 1) {
-
-			tail=this.getNode(index-2);
+			tail=this.getNode(index-1);
 			tail.next = head;
 		} else {
 			this.getNode(index-1).next=this.getNode(index+1);
-
 		}
 		size--;
 		return removed.item;
 	}
 
-	
-	
-	
-	
 	// Turns your list into a string
 	// Useful for debugging
 	public String toString(){
@@ -198,7 +188,6 @@ public class CircularLinkedList<E> implements Iterable<E> {
 	}
 
 	public static void main(String[] args){
-
 		CircularLinkedList<Integer> list = new CircularLinkedList<>();
 		for (int i = 1; i <= 13; i++) {
 			list.add(i);
@@ -208,13 +197,9 @@ public class CircularLinkedList<E> implements Iterable<E> {
 		System.out.println(list);
 		while (list.size!=1){
 			for (int i = 0; i <2; i++) {
-
-					x = list_i.next();
-
+					list_i.next();
 			}
-//			System.out.println(x);
 			list_i.remove();
-//			System.out.println("removed");
 			System.out.println(list);
 		}
 
