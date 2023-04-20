@@ -1,8 +1,7 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.util.LinkedList;
-import java.util.Queue;
+
 import java.util.Stack;
 
 import javax.swing.JPanel;
@@ -30,13 +29,33 @@ public class MazeGridPanel extends JPanel{
 		Cell finish = maze[rows-1][cols-1];
 		finish.setBackground(Color.RED);
 		stack.push(start);
-
+		while (!stack.isEmpty()){
+			Cell current = stack.peek();
+			if(current.getBackground()==Color.RED){
+				break;
+			}
+			if (!current.northWall && !visited(current.row-1, current.col)){
+				stack.push(maze[current.row-1][current.col]);
+				current.setBackground(Color.yellow);
+			} else if (!current.eastWall && !visited(current.row, current.col+1)){
+				stack.push(maze[current.row][current.col+1]);
+				current.setBackground(Color.yellow);
+			} else if (!current.southWall && !visited(current.row+1, current.col)) {
+				stack.push(maze[current.row+1][current.col]);
+				current.setBackground(Color.yellow);
+			}else if(!current.westWall && !visited(current.row, current.col-1)){
+				stack.push(maze[current.row][current.col-1]);
+				current.setBackground(Color.yellow);
+			}else {
+				current.setBackground(Color.PINK);
+				stack.pop();
+			}
+		}
+		start.setBackground(Color.GREEN);
+		finish.setBackground(Color.red);
 	}
 
 
-	
-
-	
 
 
 	public boolean visited(int row, int col) {
